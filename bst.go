@@ -10,16 +10,23 @@ package bst
  }
 
  func (tree *Node) Insert(num int) {
-	if (tree == nil) {
-		return MakeNode(num)
-	}
-	if (num < tree.Value) {
-		tree.Left = tree.Left.Insert(num)
-	} else if (num > tree.Value) {
-		tree.Right = tree.Right.Insert(num)
-	}
-
-	return tree
+    if tree == nil {
+        tree = MakeNode(num)
+        return
+    }
+    if num < tree.Value {
+        if tree.Left == nil {
+            tree.Left = MakeNode(num)
+        } else {
+            tree.Left.Insert(num)
+        }
+    } else if num > tree.Value {
+        if tree.Right == nil {
+            tree.Right = MakeNode(num)
+        } else {
+            tree.Right.Insert(num)
+        }
+    }
  }
 
  func InOrder(n *Node) {
