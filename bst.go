@@ -12,18 +12,24 @@ func MakeNode(num int) *Node {
     return &Node{Value: num}
 }
 
-func Insert(tree *Node, num int) *Node {
-    if tree == nil {
-        return MakeNode(num) 
+func (tree *Node) Insert(num int) {
+	if tree == nil {
+        return // 노드가 비어 있으면 반환
     }
 
     if num < tree.Value {
-        tree.Left = Insert(tree.Left, num) 
+        if tree.Left == nil {
+            tree.Left = MakeNode(num) // 왼쪽 자식이 비어 있으면 새 노드 생성
+        } else {
+            tree.Left.Insert(num) // 왼쪽 자식에 삽입
+        }
     } else if num > tree.Value {
-        tree.Right = Insert(tree.Right, num) 
+        if tree.Right == nil {
+            tree.Right = MakeNode(num) // 오른쪽 자식이 비어 있으면 새 노드 생성
+        } else {
+            tree.Right.Insert(num) // 오른쪽 자식에 삽입
+        }
     }
-
-    return tree 
 }
 
 func InOrder(n *Node) {
